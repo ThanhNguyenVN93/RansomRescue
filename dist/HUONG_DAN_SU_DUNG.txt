@@ -1,0 +1,213 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║           RANSOMRESCUE — HƯỚNG DẪN SỬ DỤNG  /  HOW TO USE                ║
+║           Phiên bản 1.0 | ThanhCode93 | 2026                               ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  [TIẾNG VIỆT]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+MÁY TÍNH BỊ TẤN CÔNG RANSOMWARE? HÃY LÀM THEO TỪNG BƯỚC SAU:
+
+[ BƯỚC 0 — NGAY LẬP TỨC (trước khi chạy bất cứ thứ gì) ]
+
+  ❶  Rút cáp mạng LAN / tắt WiFi ngay lập tức.
+      → Ngăn ransomware lây lan sang máy khác trong mạng.
+
+  ❷  KHÔNG tắt nguồn, KHÔNG khởi động lại máy.
+      → Một số ransomware xóa Shadow Copy / Volume Snapshot khi shutdown.
+      → Nếu còn key giải mã trong RAM, tắt máy sẽ mất vĩnh viễn.
+
+  ❸  Cắm USB đã chép tool vào máy. KHÔNG copy EXE sang ổ đang bị mã hóa.
+
+─────────────────────────────────────────────────────────────────────────────
+
+[ BƯỚC 1 — CHẠY RANSOMRESCUE ]
+
+  Chuột phải vào RansomRescue.exe → "Run as administrator"
+  (Tool tự yêu cầu quyền admin — xác nhận UAC nếu được hỏi)
+
+─────────────────────────────────────────────────────────────────────────────
+
+[ BƯỚC 2 — TAB "CẢNH BÁO" ]
+
+  • Đọc kỹ các cảnh báo trên màn hình.
+  • Tick ô "Tôi đã đọc và hiểu..." rồi nhấn "Tiếp theo →".
+  • (Tùy chọn) Tick "Tải Kaspersky KVRT..." nếu có kết nối internet.
+    → KVRT sẽ tải về %TEMP%\kvrt.exe trong lúc quét để tiết kiệm thời gian.
+
+─────────────────────────────────────────────────────────────────────────────
+
+[ BƯỚC 3 — TAB "QUÉT" ]
+
+  ① Chọn ổ đĩa cần quét (mặc định: tất cả ổ Fixed đã được chọn).
+  ② Tick "Quét sâu" nếu muốn quét kỹ hơn (chậm hơn ~3–5 lần).
+  ③ Nhấn "▶  Bắt đầu quét".
+  ④ Chờ quét hoàn tất — theo dõi nhật ký màu trong ô log bên phải.
+     → Dòng đỏ: cảnh báo / phát hiện
+     → Dòng xanh: tiến trình bình thường
+
+─────────────────────────────────────────────────────────────────────────────
+
+[ BƯỚC 4 — TAB "KẾT QUẢ" ]
+
+  Sau khi quét xong, tab Kết quả hiển thị:
+
+  ┌─ DÒNG HỌ RANSOMWARE ──────────────────────────────────────┐
+  │  Tên dòng họ + điểm nhận diện + mức độ (XÁC ĐỊNH / NGHI NGỜ)│
+  │  Nếu có nhiều ứng cử viên → xem danh sách bên dưới        │
+  └──────────────────────────────────────────────────────────────┘
+
+  ┌─ CÔNG CỤ GIẢI MÃ ─────────────────────────────────────────┐
+  │  • Có tool giải mã: nhấn nút xanh để tải về               │
+  │  • Giải mã có điều kiện: đọc kỹ điều kiện trước khi chạy  │
+  │  • Chưa có tool: theo dõi nomoreransom.org                 │
+  └──────────────────────────────────────────────────────────────┘
+
+  ┌─ CÁC NÚT THAO TÁC ────────────────────────────────────────┐
+  │  🛡 Chạy Kaspersky KVRT  → Xóa ransomware (nếu đã tải)    │
+  │  🌐 Gửi lên ID-Ransomware → Xác định chính xác hơn         │
+  │  💾 Lưu báo cáo (.txt)   → Lưu toàn bộ kết quả            │
+  └──────────────────────────────────────────────────────────────┘
+
+─────────────────────────────────────────────────────────────────────────────
+
+[ BƯỚC 5 — SAU KHI CÓ KẾT QUẢ ]
+
+  ① Chạy KVRT (nếu đã tải) để xóa ransomware khỏi hệ thống.
+  ② Backup TOÀN BỘ file mã hóa ra ổ ngoài trước khi giải mã.
+     → Phòng trường hợp tool giải mã lỗi / không tương thích.
+  ③ Tải và chạy công cụ giải mã tương ứng:
+     → nomoreransom.org (miễn phí, uy tín nhất)
+     → Trang của hãng bảo mật (Emsisoft, Kaspersky, Avast...)
+  ④ Test giải mã 1–2 file nhỏ TRƯỚC khi chạy toàn bộ.
+
+─────────────────────────────────────────────────────────────────────────────
+
+[ CÁC TÍNH NĂNG KHÁC ]
+
+  🌙 Dark mode     : Nhấn nút 🌙 ở góc phải dưới để đổi chế độ tối/sáng
+  EN/VN           : Nhấn nút EN ở góc phải dưới để chuyển ngôn ngữ
+  SHA256 self-check: Hiển thị ở thanh trạng thái — đảm bảo EXE không bị sửa
+
+─────────────────────────────────────────────────────────────────────────────
+
+[ LƯU Ý QUAN TRỌNG ]
+
+  ⚠  Tool NÀY CHỈ NHẬN DIỆN và tìm công cụ giải mã.
+     Tool KHÔNG giải mã, KHÔNG xóa virus, KHÔNG thay thế phần mềm diệt virus.
+
+  ⚠  Điểm nhận diện:
+     ≥ 75đ = XÁC ĐỊNH (đủ bằng chứng: extension + ransom note)
+     < 75đ = NGHI NGỜ (chỉ khớp một phần — cần xác nhận thêm)
+
+  ⚠  Tool hoàn toàn miễn phí, mã nguồn mở. Không thu thập dữ liệu cá nhân.
+     Không kết nối mạng trừ khi bạn tích chọn tải KVRT hoặc gửi mẫu.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  [ENGLISH]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+RANSOMWARE HIT YOUR PC? FOLLOW THESE STEPS:
+
+[ STEP 0 — IMMEDIATELY (before running anything) ]
+
+  ❶  Unplug your LAN cable / disable WiFi right now.
+      → Prevents ransomware from spreading to other machines on your network.
+
+  ❷  Do NOT shut down or restart the computer.
+      → Many strains delete Shadow Copies / Volume Snapshots on shutdown.
+      → Encryption keys may still be in RAM — a restart loses them forever.
+
+  ❸  Plug in the USB containing this tool. Do NOT copy the EXE
+      to any drive that has been encrypted.
+
+─────────────────────────────────────────────────────────────────────────────
+
+[ STEP 1 — RUN RANSOMRESCUE ]
+
+  Right-click RansomRescue.exe → "Run as administrator"
+  (The tool requests admin rights automatically — approve the UAC prompt)
+
+─────────────────────────────────────────────────────────────────────────────
+
+[ STEP 2 — "WARNING" TAB ]
+
+  • Read all the on-screen warnings carefully.
+  • Check "I have read and understood..." then click "Next →".
+  • (Optional) Check "Download Kaspersky KVRT..." if you have internet access.
+    → KVRT (~150 MB) will download to %TEMP%\kvrt.exe while scanning.
+
+─────────────────────────────────────────────────────────────────────────────
+
+[ STEP 3 — "SCAN" TAB ]
+
+  ① Select the drives to scan (all Fixed drives are checked by default).
+  ② Check "Deep scan" for a more thorough but slower scan (~3–5× longer).
+  ③ Click "▶  Start scan".
+  ④ Wait for the scan to finish — watch the color-coded log on the right.
+     → Red lines: warnings / detections
+     → Green lines: normal progress
+
+─────────────────────────────────────────────────────────────────────────────
+
+[ STEP 4 — "RESULT" TAB ]
+
+  After the scan, the Result tab shows:
+
+  ┌─ RANSOMWARE FAMILY ───────────────────────────────────────┐
+  │  Family name + confidence score + level (CONFIRMED / SUSPECTED)│
+  │  If multiple candidates exist → see the list below         │
+  └──────────────────────────────────────────────────────────────┘
+
+  ┌─ DECRYPTION TOOL ─────────────────────────────────────────┐
+  │  • Tool available: click the green button to download      │
+  │  • Conditional decryption: read the conditions carefully   │
+  │  • No tool yet: monitor nomoreransom.org                   │
+  └──────────────────────────────────────────────────────────────┘
+
+  ┌─ ACTION BUTTONS ──────────────────────────────────────────┐
+  │  🛡 Run Kaspersky KVRT    → Remove ransomware (if downloaded)│
+  │  🌐 Submit to ID-Ransomware → Get a more accurate ID        │
+  │  💾 Save report (.txt)    → Export full results             │
+  └──────────────────────────────────────────────────────────────┘
+
+─────────────────────────────────────────────────────────────────────────────
+
+[ STEP 5 — AFTER GETTING RESULTS ]
+
+  ① Run KVRT (if downloaded) to remove the ransomware from the system.
+  ② Back up ALL encrypted files to an external drive before decrypting.
+     → In case the decryption tool fails or is incompatible.
+  ③ Download and run the matching decryption tool:
+     → nomoreransom.org (free, most trusted)
+     → Security vendor pages (Emsisoft, Kaspersky, Avast...)
+  ④ Test-decrypt 1–2 small files BEFORE running on everything.
+
+─────────────────────────────────────────────────────────────────────────────
+
+[ OTHER FEATURES ]
+
+  🌙 Dark mode      : Click the 🌙 button (bottom-right) to toggle themes
+  EN/VN             : Click the EN button (bottom-right) to switch language
+  SHA256 self-check : Shown in the status bar — verifies the EXE is untampered
+
+─────────────────────────────────────────────────────────────────────────────
+
+[ IMPORTANT NOTES ]
+
+  ⚠  This tool ONLY identifies the ransomware family and finds decryption tools.
+     It does NOT decrypt files, remove viruses, or replace antivirus software.
+
+  ⚠  Confidence scoring:
+     ≥ 75 pts = CONFIRMED  (strong evidence: extension + ransom note match)
+     < 75 pts = SUSPECTED  (partial match only — further verification needed)
+
+  ⚠  This tool is free and open-source. No personal data is collected.
+     No network access occurs unless you opt in to KVRT download or sample submission.
+
+─────────────────────────────────────────────────────────────────────────────
+  Source: https://github.com/ThanhNguyenVN93/RansomRescue
+  Feedback / Bug reports: open an Issue on GitHub
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

@@ -1,0 +1,21 @@
+# Build output
+bin/
+obj/
+Tests/bin/
+Tests/obj/
+
+# NuGet packages (restore được)
+packages/
+
+# Visual Studio
+*.user
+*.suo
+.vs/
+*.rsuser
+
+# Log files
+*.log
+
+# OS
+Thumbs.db
+desktop.ini

@@ -1,0 +1,960 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>RansomRescue Flowchart</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap">
+
+<style>
+/* === DESIGN TOKENS ===
+   Layout: vertical flowchart with horizontal branches, scrollable canvas
+   Color: dark-first (security/technical theme), amber accent, status semantics */
+
+:root {
+  --bg: #f7f8fa;
+  --bg2: #eef0f4;
+  --surface: #ffffff;
+  --border: #d1d5db;
+  --fg: #1a1d23;
+  --fg2: #4b5563;
+  --fg3: #9ca3af;
+
+  --amber: #d97706;
+  --amber-light: #fef3c7;
+  --amber-border: #fcd34d;
+
+  --green: #059669;
+  --green-light: #d1fae5;
+  --green-border: #6ee7b7;
+
+  --red: #dc2626;
+  --red-light: #fee2e2;
+  --red-border: #fca5a5;
+
+  --blue: #2563eb;
+  --blue-light: #dbeafe;
+  --blue-border: #93c5fd;
+
+  --purple: #7c3aed;
+  --purple-light: #ede9fe;
+  --purple-border: #c4b5fd;
+
+  --orange: #ea580c;
+  --orange-light: #ffedd5;
+  --orange-border: #fdba74;
+
+  --node-user: var(--blue-light);
+  --node-user-border: var(--blue-border);
+  --node-user-text: var(--blue);
+
+  --node-logic: var(--surface);
+  --node-logic-border: var(--border);
+  --node-logic-text: var(--fg);
+
+  --node-external: var(--purple-light);
+  --node-external-border: var(--purple-border);
+  --node-external-text: var(--purple);
+
+  --node-success: var(--green-light);
+  --node-success-border: var(--green-border);
+  --node-success-text: var(--green);
+
+  --node-fail: var(--red-light);
+  --node-fail-border: var(--red-border);
+  --node-fail-text: var(--red);
+
+  --node-warn: var(--amber-light);
+  --node-warn-border: var(--amber-border);
+  --node-warn-text: var(--amber);
+
+  --node-special: var(--orange-light);
+  --node-special-border: var(--orange-border);
+  --node-special-text: var(--orange);
+
+  --shadow: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.05);
+  --shadow-md: 0 4px 12px rgba(0,0,0,.10);
+
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0d1117;
+    --bg2: #161b22;
+    --surface: #1c2128;
+    --border: #30363d;
+    --fg: #e6edf3;
+    --fg2: #8b949e;
+    --fg3: #484f58;
+
+    --amber: #f59e0b;
+    --amber-light: #1f1700;
+    --amber-border: #713f12;
+
+    --green: #10b981;
+    --green-light: #031a10;
+    --green-border: #064e3b;
+
+    --red: #f87171;
+    --red-light: #1a0505;
+    --red-border: #7f1d1d;
+
+    --blue: #60a5fa;
+    --blue-light: #050d1f;
+    --blue-border: #1e3a5f;
+
+    --purple: #a78bfa;
+    --purple-light: #0e0619;
+    --purple-border: #3b1f6b;
+
+    --orange: #fb923c;
+    --orange-light: #1a0800;
+    --orange-border: #7c2d12;
+
+    --shadow: 0 1px 3px rgba(0,0,0,.4);
+    --shadow-md: 0 4px 12px rgba(0,0,0,.5);
+
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #0d1117;
+  --bg2: #161b22;
+  --surface: #1c2128;
+  --border: #30363d;
+  --fg: #e6edf3;
+  --fg2: #8b949e;
+  --fg3: #484f58;
+  --amber: #f59e0b;
+  --amber-light: #1f1700;
+  --amber-border: #713f12;
+  --green: #10b981;
+  --green-light: #031a10;
+  --green-border: #064e3b;
+  --red: #f87171;
+  --red-light: #1a0505;
+  --red-border: #7f1d1d;
+  --blue: #60a5fa;
+  --blue-light: #050d1f;
+  --blue-border: #1e3a5f;
+  --purple: #a78bfa;
+  --purple-light: #0e0619;
+  --purple-border: #3b1f6b;
+  --orange: #fb923c;
+  --orange-light: #1a0800;
+  --orange-border: #7c2d12;
+  --shadow: 0 1px 3px rgba(0,0,0,.4);
+  --shadow-md: 0 4px 12px rgba(0,0,0,.5);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Header */
+.header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--shadow);
+}
+
+.header-left { display: flex; align-items: center; gap: 10px; }
+
+.logo {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--fg);
+  letter-spacing: -0.3px;
+}
+.logo span { color: var(--amber); }
+
+.badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 99px;
+  background: var(--amber-light);
+  color: var(--amber);
+  border: 1px solid var(--amber-border);
+  letter-spacing: .3px;
+  text-transform: uppercase;
+}
+
+.header-right { display: flex; align-items: center; gap: 8px; }
+
+/* Legend */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  padding: 10px 20px;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  font-size: 11px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--fg2);
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  border: 1.5px solid;
+  flex-shrink: 0;
+}
+
+/* Main canvas */
+.canvas {
+  padding: 24px 16px 40px;
+  overflow-x: auto;
+}
+
+.flow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  min-width: 320px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Connector arrows */
+.arrow {
+  width: 2px;
+  height: 20px;
+  background: var(--border);
+  position: relative;
+  flex-shrink: 0;
+}
+.arrow::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: var(--border);
+}
+
+.arrow-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--fg3);
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: -4px;
+  margin-top: 2px;
+}
+
+/* Nodes */
+.node {
+  border: 1.5px solid var(--node-logic-border);
+  background: var(--node-logic);
+  border-radius: 8px;
+  padding: 10px 16px;
+  width: 100%;
+  max-width: 480px;
+  box-shadow: var(--shadow);
+  position: relative;
+}
+
+.node-user    { background: var(--node-user); border-color: var(--node-user-border); }
+.node-logic   { background: var(--node-logic); border-color: var(--node-logic-border); }
+.node-external{ background: var(--node-external); border-color: var(--node-external-border); }
+.node-success { background: var(--node-success); border-color: var(--node-success-border); }
+.node-fail    { background: var(--node-fail); border-color: var(--node-fail-border); }
+.node-warn    { background: var(--node-warn); border-color: var(--node-warn-border); }
+.node-special { background: var(--node-special); border-color: var(--node-special-border); }
+
+.node-diamond {
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  border-radius: 0;
+  background: var(--amber-light);
+  border: none;
+  outline: 1.5px solid var(--amber-border);
+  text-align: center;
+  padding: 18px 24px;
+  min-height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.node-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.node-step {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--fg3);
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  padding-top: 1px;
+  flex-shrink: 0;
+}
+
+.node-title {
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--fg);
+  text-wrap: balance;
+}
+
+.node-user    .node-title { color: var(--node-user-text); }
+.node-external .node-title { color: var(--node-external-text); }
+.node-success .node-title { color: var(--node-success-text); }
+.node-fail    .node-title { color: var(--node-fail-text); }
+.node-warn    .node-title { color: var(--node-warn-text); }
+.node-special .node-title { color: var(--node-special-text); }
+
+.node-body {
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--fg2);
+  padding-left: 0;
+}
+
+.node-body ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.node-body li::before {
+  content: '›';
+  color: var(--fg3);
+  margin-right: 5px;
+  font-weight: 600;
+}
+
+.node-body li {
+  display: flex;
+  align-items: baseline;
+  gap: 0;
+}
+
+code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  padding: 1px 4px;
+  border-radius: 3px;
+  color: var(--fg);
+}
+
+/* Section labels */
+.section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--fg3);
+  margin: 12px 0 4px;
+  align-self: flex-start;
+  padding-left: 4px;
+}
+
+/* Branch container */
+.branch {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  max-width: 900px;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.branch-col {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.branch-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 99px;
+  margin-bottom: 4px;
+}
+
+.branch-yes  { background: var(--green-light); color: var(--green); border: 1px solid var(--green-border); }
+.branch-no   { background: var(--red-light); color: var(--red); border: 1px solid var(--red-border); }
+.branch-unk  { background: var(--amber-light); color: var(--amber); border: 1px solid var(--amber-border); }
+.branch-spec { background: var(--orange-light); color: var(--orange); border: 1px solid var(--orange-border); }
+
+/* Decision node */
+.decision {
+  background: var(--amber-light);
+  border: 1.5px solid var(--amber-border);
+  border-radius: 8px;
+  padding: 10px 16px;
+  width: 100%;
+  max-width: 480px;
+  text-align: center;
+}
+
+.decision .node-title { color: var(--amber); text-align: center; }
+.decision .node-body { text-align: center; }
+
+/* Horizontal branch line */
+.branch-line {
+  width: 100%;
+  max-width: 900px;
+  height: 1px;
+  background: var(--border);
+  position: relative;
+  margin: 0;
+}
+
+/* Warning box */
+.warn-box {
+  background: var(--node-warn);
+  border: 1.5px solid var(--amber-border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.warn-icon { font-size: 16px; flex-shrink: 0; line-height: 1.4; }
+.warn-text { font-size: 12px; color: var(--amber); font-weight: 500; }
+
+/* Humanerror section */
+.weaknesses {
+  max-width: 900px;
+  margin: 32px auto 0;
+  padding: 0 0 8px;
+}
+
+.weaknesses-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--fg3);
+  margin-bottom: 12px;
+  padding: 0 4px;
+}
+
+.weakness-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.weakness-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--red);
+  border-radius: 6px;
+  padding: 8px 12px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.weakness-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--red);
+  flex-shrink: 0;
+  padding-top: 1px;
+  min-width: 18px;
+}
+
+.weakness-body { min-width: 0; }
+.weakness-label { font-size: 12px; font-weight: 600; color: var(--fg); }
+.weakness-desc { font-size: 11px; color: var(--fg2); margin-top: 2px; }
+
+/* Spacers */
+.gap4  { height: 4px; flex-shrink: 0; }
+.gap8  { height: 8px; flex-shrink: 0; }
+.gap16 { height: 16px; flex-shrink: 0; }
+
+/* Divider */
+.divider {
+  width: 100%;
+  max-width: 480px;
+  border: none;
+  border-top: 1px dashed var(--border);
+  margin: 4px 0;
+}
+
+/* Theme toggle */
+.theme-btn {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  color: var(--fg2);
+  border-radius: 6px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 12px;
+  font-family: inherit;
+  transition: background .15s;
+}
+.theme-btn:hover { background: var(--border); }
+.theme-btn:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+
+/* Responsive */
+@media (max-width: 600px) {
+  .branch { flex-direction: column; align-items: center; }
+  .branch-col { width: 100%; }
+  .header { padding: 10px 14px; }
+  .canvas { padding: 16px 10px 32px; }
+}
+</style>
+
+<header class="header">
+  <div class="header-left">
+    <div class="logo">Ransom<span>Rescue</span></div>
+    <div class="badge">Workflow v2</div>
+  </div>
+  <div class="header-right">
+    <button class="theme-btn" id="themeBtn" aria-label="Toggle theme">🌓 Theme</button>
+  </div>
+</header>
+
+<div class="legend">
+  <div class="legend-item">
+    <div class="legend-dot" style="background:var(--node-user);border-color:var(--node-user-border)"></div>
+    Hành động người dùng
+  </div>
+  <div class="legend-item">
+    <div class="legend-dot" style="background:var(--node-logic);border-color:var(--node-logic-border)"></div>
+    Logic tool
+  </div>
+  <div class="legend-item">
+    <div class="legend-dot" style="background:var(--node-external);border-color:var(--node-external-border)"></div>
+    Dịch vụ ngoài
+  </div>
+  <div class="legend-item">
+    <div class="legend-dot" style="background:var(--node-success);border-color:var(--node-success-border)"></div>
+    Thành công / có decryptor
+  </div>
+  <div class="legend-item">
+    <div class="legend-dot" style="background:var(--node-warn);border-color:var(--node-warn-border)"></div>
+    Quyết định / cảnh báo
+  </div>
+  <div class="legend-item">
+    <div class="legend-dot" style="background:var(--node-fail);border-color:var(--node-fail-border)"></div>
+    Thất bại / không có decryptor
+  </div>
+  <div class="legend-item">
+    <div class="legend-dot" style="background:var(--node-special);border-color:var(--node-special-border)"></div>
+    Xử lý đặc biệt
+  </div>
+</div>
+
+<div class="canvas">
+<div class="flow">
+
+  <!-- STEP 1 -->
+  <div class="section-label">Bước 1 — Khởi động & Phát hiện</div>
+
+  <div class="node node-user">
+    <div class="node-header">
+      <div class="node-step">1.0</div>
+      <div class="node-title">Khởi động RansomRescue.exe</div>
+    </div>
+    <div class="node-body">
+      <ul>
+        <li>Phát hiện nguồn: chạy từ USB hay download thẳng?</li>
+        <li>Nếu từ USB → <code>DriveInfo.DriveType == Removable</code> → đặt read-only + cảnh báo</li>
+        <li>Kiểm tra hash EXE (SHA-256) để đảm bảo file chưa bị mã hóa/thay thế</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="arrow"></div>
+
+  <div class="node node-warn">
+    <div class="node-header">
+      <div class="node-step">1.1</div>
+      <div class="node-title">⚠️ Màn hình cảnh báo bắt buộc (hiện TRƯỚC tất cả)</div>
+    </div>
+    <div class="node-body">
+      <ul>
+        <li><strong>Nếu máy ĐANG bị mã hóa</strong> (đèn HDD sáng, CPU/disk cao): TẮT NGUỒN NGAY</li>
+        <li><strong>Nếu đã xong</strong>: có thể tiếp tục bình thường</li>
+        <li>Cách an toàn nhất: <strong>Boot vào Safe Mode</strong> trước khi chạy tool</li>
+        <li>Win 10/11: Shift+Restart → F4 | Win 7: F8 khi boot</li>
+        <li>99% ransomware không có persistence trong Safe Mode</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="arrow"></div>
+
+  <div class="node node-logic">
+    <div class="node-header">
+      <div class="node-step">1.2</div>
+      <div class="node-title">Load Database (Offline-first)</div>
+    </div>
+    <div class="node-body">
+      <ul>
+        <li><strong>Main source</strong>: Scrape <code>nomoreransom.org/en/decryption-tools.html</code> (~170 decryptors)</li>
+        <li><strong>Fallback 1</strong>: GitHub repo (<code>db.json</code>) — VN-specific families, cập nhật theo GH Actions khi NMR thay đổi</li>
+        <li><strong>Fallback 2</strong>: Hard-coded ~30 families phổ biến VN nhất trong binary</li>
+        <li>Cache local: dùng nếu offline + cache còn &lt;7 ngày</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="arrow"></div>
+
+  <div class="node node-logic">
+    <div class="node-header">
+      <div class="node-step">1.3</div>
+      <div class="node-title">Hiện Form chính → Sẵn sàng</div>
+    </div>
+    <div class="node-body">
+      <ul>
+        <li>Hiển thị phiên bản DB đang dùng + thời gian cập nhật cuối</li>
+        <li>Cảnh báo nếu đang dùng fallback (offline/cache cũ)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="arrow"></div>
+
+  <!-- STEP 2 -->
+  <div class="section-label">Bước 2 — Quét thư mục</div>
+
+  <div class="node node-user">
+    <div class="node-header">
+      <div class="node-step">2.0</div>
+      <div class="node-title">Người dùng bấm "Bắt đầu quét"</div>
+    </div>
+    <div class="node-body">
+      <ul>
+        <li>Cho phép chọn ổ / thư mục cụ thể hoặc quét toàn bộ</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="arrow"></div>
+
+  <div class="node node-logic">
+    <div class="node-header">
+      <div class="node-step">2.1</div>
+      <div class="node-title">Quét tất cả thư mục — KHÔNG bỏ qua</div>
+    </div>
+    <div class="node-body">
+      <ul>
+        <li><strong>Users/*</strong>: quét toàn bộ (extension + ransom note + header)</li>
+        <li><strong>Windows, Program Files, System32</strong>: chỉ tìm ransom note, KHÔNG quét extension file hệ thống</li>
+        <li><strong>Ổ khác, USB, NAS</strong>: quét đầy đủ</li>
+        <li>Thu thập: file bị đổi extension, ransom note, encrypted file mẫu</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="arrow"></div>
+
+  <!-- STEP 3-4 -->
+  <div class="section-label">Bước 3–4 — Thu thập bằng chứng & Nhận diện</div>
+
+  <div class="node node-logic">
+    <div class="node-header">
+      <div class="node-step">3.0</div>
+      <div class="node-title">Thu thập bằng chứng</div>
+    </div>
+    <div class="node-body">
+      <ul>
+        <li>Lấy mẫu: extension bất thường, ransom note (.txt, .html, .hta), file header bytes</li>
+        <li>Kiểm tra registry: startup entries, shadow copies (vssadmin), wallpaper đã bị đổi</li>
+        <li>Ghi log: thời gian bị nhiễm ước tính (so sánh mtime file bình thường vs file bị mã hóa)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="arrow"></div>
+
+  <div class="node node-logic">
+    <div class="node-header">
+      <div class="node-step">4.0</div>
+      <div class="node-title">Nhận diện họ ransomware (Offline)</div>
+    </div>
+    <div class="node-body">
+      <ul>
+        <li>Match extension → <code>db.json</code> families</li>
+        <li>Match nội dung ransom note (keywords, email contact)</li>
+        <li>Match file header magic bytes</li>
+        <li>Kết quả: tên family + confidence score</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="arrow"></div>
+
+  <div class="decision">
+    <div class="node-header" style="justify-content:center">
+      <div class="node-title">Nhận diện được họ ransomware?</div>
+    </div>
+    <div class="node-body" style="font-size:11px;color:var(--fg2)">So khớp trong DB offline</div>
+  </div>
+
+  <div class="gap8"></div>
+  <div class="branch-line"></div>
+  <div class="gap4"></div>
+
+  <!-- STEP 5 branches -->
+  <div class="section-label">Bước 5 — Phục hồi (luôn cần internet)</div>
+
+  <div class="branch">
+    <!-- Branch: Biết family -->
+    <div class="branch-col">
+      <div class="branch-label branch-yes">Đã biết family</div>
+      <div class="arrow"></div>
+
+      <div class="node node-logic" style="max-width:none">
+        <div class="node-header">
+          <div class="node-step">5.1</div>
+          <div class="node-title">Kiểm tra: có free decryptor không?</div>
+        </div>
+        <div class="node-body">
+          <ul>
+            <li>Tra <code>db.json</code>: <code>decryptor_available</code> field</li>
+            <li>Confirm online: kiểm tra URL NMR còn live không</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="arrow"></div>
+
+      <div class="decision" style="max-width:none">
+        <div class="node-title" style="font-size:12px">Có decryptor?</div>
+      </div>
+      <div class="gap8"></div>
+
+      <div class="branch">
+        <div class="branch-col">
+          <div class="branch-label branch-yes">5.1.1 — Có</div>
+          <div class="arrow"></div>
+          <div class="node node-success" style="max-width:none">
+            <div class="node-header">
+              <div class="node-step">✓</div>
+              <div class="node-title">Hướng dẫn decrypt</div>
+            </div>
+            <div class="node-body">
+              <ul>
+                <li>Link tải decryptor (Emsisoft/Kaspersky/Avast/Bitdefender...)</li>
+                <li>Cần: 1 file gốc + 1 file đã mã hóa cùng loại</li>
+                <li>Cảnh báo: giữ lại file encrypted gốc trước khi decrypt</li>
+                <li>Nếu <code>decryptor_conditional</code>: giải thích điều kiện (vd: STOP/Djvu chỉ ~30% offline key)</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="branch-col">
+          <div class="branch-label branch-no">5.1.2 — Không</div>
+          <div class="arrow"></div>
+          <div class="node node-fail" style="max-width:none">
+            <div class="node-header">
+              <div class="node-step">✗</div>
+              <div class="node-title">Chưa có decryptor</div>
+            </div>
+            <div class="node-body">
+              <ul>
+                <li>Lưu ransom note + file mẫu (encrypted) vào folder an toàn</li>
+                <li>Hướng dẫn gửi lên NMR Crypto Sheriff</li>
+                <li>Hướng dẫn liên hệ: Emsisoft, BleepingComputer forums</li>
+                <li>Nhắc: KHÔNG trả tiền chuộc, KHÔNG format ngay</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Branch: Không biết family -->
+    <div class="branch-col">
+      <div class="branch-label branch-unk">Không biết / Chưa rõ</div>
+      <div class="arrow"></div>
+
+      <div class="node node-external" style="max-width:none">
+        <div class="node-header">
+          <div class="node-step">5.2</div>
+          <div class="node-title">Online Check: id-ransomware.malwarehunterteam.com</div>
+        </div>
+        <div class="node-body">
+          <ul>
+            <li>Submit: ransom note + file mẫu đã mã hóa</li>
+            <li>Database: 1188 families</li>
+            <li>Kết quả trả về → match với DB local → quay lại 5.1</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="arrow"></div>
+
+      <div class="decision" style="max-width:none">
+        <div class="node-title" style="font-size:12px">Nhận diện được?</div>
+      </div>
+      <div class="gap8"></div>
+
+      <div class="branch">
+        <div class="branch-col">
+          <div class="branch-label branch-yes">Xác định được</div>
+          <div class="arrow"></div>
+          <div class="node node-logic" style="max-width:none">
+            <div class="node-title" style="font-size:12px;padding:8px 12px">→ Quay lại nhánh 5.1</div>
+          </div>
+        </div>
+        <div class="branch-col">
+          <div class="branch-label branch-no">Vẫn không biết</div>
+          <div class="arrow"></div>
+          <div class="node node-fail" style="max-width:none">
+            <div class="node-header">
+              <div class="node-step">✗</div>
+              <div class="node-title">Family mới / chưa có trong DB</div>
+            </div>
+            <div class="node-body">
+              <ul>
+                <li>Xuất báo cáo: extension, ransom note text, sample</li>
+                <li>Hướng dẫn: gửi BleepingComputer / Emsisoft / NMR</li>
+                <li>Gợi ý: check lại sau vài tuần khi có decryptor mới</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="gap16"></div>
+  <div class="divider" style="max-width:900px;width:100%"></div>
+  <div class="gap8"></div>
+
+  <!-- Step 5.3 Special -->
+  <div class="section-label">Bước 5.3 — Xử lý đặc biệt (hard-coded logic)</div>
+
+  <div class="node node-special" style="max-width:600px">
+    <div class="node-header">
+      <div class="node-step">5.3</div>
+      <div class="node-title">Khi nào kích hoạt? Khi db.json có trường <code>special_handling</code></div>
+    </div>
+    <div class="node-body">
+      <ul>
+        <li><strong>STOP/Djvu</strong> (<code>stop_djvu_key_check</code>): offline key check ~30%, submit pair lên Emsisoft → kết quả ngay</li>
+        <li><strong>WannaCry</strong> (<code>wannacry_ram_key</code>): key có thể còn trong RAM → <em>KHÔNG restart</em>, dùng WannaKey/WanaKiwi</li>
+        <li><strong>Petya/NotPetya</strong> (<code>petya_mbr</code>): MBR bị ghi đè → flow khác (MBR repair tool)</li>
+        <li><strong>NAS Ransomware</strong> (<code>nas_network</code>): không quét local, hướng dẫn cách ly network ngay</li>
+        <li><strong>Double-encrypted</strong> (<code>double_encrypted</code>): phát hiện 2 lớp mã hóa → cần decrypt 2 lần theo thứ tự</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<!-- Weaknesses -->
+<div class="weaknesses">
+  <div class="weaknesses-title">⚠ Điểm yếu do con người</div>
+  <div class="weakness-list">
+    <div class="weakness-item">
+      <div class="weakness-num">W1</div>
+      <div class="weakness-body">
+        <div class="weakness-label">Cắm USB / tải về khi ransomware đang chạy admin</div>
+        <div class="weakness-desc">Ransomware chạy admin encrypt USB trong vài giây. Giảm thiểu: Safe Mode, tắt nguồn cứng trước. Không có tool nào tránh hoàn toàn được kịch bản này.</div>
+      </div>
+    </div>
+    <div class="weakness-item">
+      <div class="weakness-num">W2</div>
+      <div class="weakness-body">
+        <div class="weakness-label">Restart máy trước khi chạy tool</div>
+        <div class="weakness-desc">Mất RAM key của WannaCry và một số family khác. Tool phải cảnh báo rõ trước màn hình shutdown.</div>
+      </div>
+    </div>
+    <div class="weakness-item">
+      <div class="weakness-num">W3</div>
+      <div class="weakness-body">
+        <div class="weakness-label">Overwrite file gốc trước khi decrypt</div>
+        <div class="weakness-desc">Cần 1 file gốc chưa encrypt để submit key check. Hướng dẫn cần nổi bật: KHÔNG xóa file nào trước khi dùng tool.</div>
+      </div>
+    </div>
+    <div class="weakness-item">
+      <div class="weakness-num">W4</div>
+      <div class="weakness-body">
+        <div class="weakness-label">Trả tiền chuộc rồi mới dùng tool</div>
+        <div class="weakness-desc">Tiền đã mất nhưng thường không nhận được key. Tool cần hiển thị cảnh báo này ở màn hình đầu tiên.</div>
+      </div>
+    </div>
+    <div class="weakness-item">
+      <div class="weakness-num">W5</div>
+      <div class="weakness-body">
+        <div class="weakness-label">Không backup trước khi decrypt</div>
+        <div class="weakness-desc">Nếu decryptor lỗi hoặc sai key → mất luôn dữ liệu. Tool bắt buộc nhắc: backup encrypted file trước khi decrypt.</div>
+      </div>
+    </div>
+    <div class="weakness-item">
+      <div class="weakness-num">W6</div>
+      <div class="weakness-body">
+        <div class="weakness-label">STOP/Djvu online key (~70%): không có decryptor miễn phí</div>
+        <div class="weakness-desc">Emsisoft chỉ decrypt được nếu có offline key. Nếu online key: chỉ con đường duy nhất là chờ hoặc trả. Tool phải nói thẳng điều này.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- end canvas -->
+
+<script>
+const btn = document.getElementById('themeBtn');
+const root = document.documentElement;
+let theme = (() => { try { return localStorage.getItem('rr-theme') || 'system'; } catch { return 'system'; } })();
+function applyTheme(t) {
+  if (t === 'dark') root.setAttribute('data-theme', 'dark');
+  else if (t === 'light') root.setAttribute('data-theme', 'light');
+  else root.removeAttribute('data-theme');
+  try { localStorage.setItem('rr-theme', t); } catch {}
+}
+applyTheme(theme);
+btn.addEventListener('click', () => {
+  theme = theme === 'system' ? 'dark' : theme === 'dark' ? 'light' : 'system';
+  applyTheme(theme);
+});
+</script>
+
+</body></html>
